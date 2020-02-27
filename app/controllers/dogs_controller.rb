@@ -1,9 +1,5 @@
 class DogsController < ApplicationController
 
-  def hi
-    render: "This is the Dogs Api"
-  end
-  
     def index
         dogs = Dog.all
         render json: dogs.to_json(:include => {
