@@ -3,28 +3,24 @@ Like.destroy_all
 Rating.destroy_all
 Dog.destroy_all
 
-parsedDogs = JSON.parse(File.read('cuteemergency.json'))
-parsedDogs2 = JSON.parse(File.read('cutestpetdogs.json'))
+parsedDogsArray = [JSON.parse(File.read('mydogiscutest.json')), 
+JSON.parse(File.read('dog_overload.json')), 
+JSON.parse(File.read('wesnapdogs.json')), 
+JSON.parse(File.read('cutestpetdogs.json'))]
 
-newDogs = parsedDogs.select do |dog|
-    dog.extend Hashie::Extensions::DeepFind
-    dog.deep_find("media_url")
+
+newDogs = parsedDogsArray.map do |parsedDogsFile|
+    parsedDogsFile.select do |dog|
+        dog.extend Hashie::Extensions::DeepFind
+        dog.deep_find("media_url")
+    end
 end
 
-newDogs.each do |dog|
-    dog.extend Hashie::Extensions::DeepFind
-    Dog.create(image_url: dog.deep_find("media_url"))
-end
-
-newDogs2 = parsedDogs2.select do |dog|
-    dog.extend Hashie::Extensions::DeepFind
-    dog.deep_find("media_url")
-end
-
-newDogs2.each do |dog|
+newDogs.flatten.each do |dog|
     dog.extend Hashie::Extensions::DeepFind
     Dog.create(image_url: dog.deep_find("media_url"))
 end
+
 
 Dog.all.each do |dog|
     5.times do
