@@ -4,10 +4,7 @@ Rating.destroy_all
 Dog.destroy_all
 
 parsedDogsArray = [
-    # JSON.parse(File.read('mydogiscutest.json')), 
 JSON.parse(File.read('dailypuppy.json')),
-# JSON.parse(File.read('dog_overload.json')), 
-# JSON.parse(File.read('wesnapdogs.json')), 
 JSON.parse(File.read('cutestpetdogs.json'))]
 
 
