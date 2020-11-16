@@ -20,7 +20,9 @@ end
 
 newDogs.flatten.each do |dog|
     dog.extend Hashie::Extensions::DeepFind
-    Dog.create(image_url: dog.deep_find("media_url"))
+    if dog.deep_find("media_url").exclude?("tweet_video_thumb")
+        Dog.create(image_url: dog.deep_find("media_url"))
+    end
 end
 
 
