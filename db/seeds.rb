@@ -3,17 +3,12 @@ Like.destroy_all
 Rating.destroy_all
 Dog.destroy_all
 
-parsedDogsArray = [
-JSON.parse(File.read('dailypuppy.json')),
-JSON.parse(File.read('cutestpetdogs.json'))]
+parsedDogsFile = JSON.parse(File.read('dailypuppy.json'))
 
-
-newDogs = parsedDogsArray.map do |parsedDogsFile|
-    parsedDogsFile.select do |dog|
+newDogs = parsedDogsFile.select do |dog|
         dog.extend Hashie::Extensions::DeepFind
         dog.deep_find("media_url")
     end
-end
 
 newDogs.flatten.each do |dog|
     dog.extend Hashie::Extensions::DeepFind
