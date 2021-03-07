@@ -5,7 +5,7 @@ Dog.destroy_all
 
 parsedDogsFile = JSON.parse(File.read('dailypuppy.json'))
 
-newDogs = parsedDogsFile.select do |dog|
+newDogs = parsedDogsFile[0..57].select do |dog|
         dog.extend Hashie::Extensions::DeepFind
         dog.deep_find("media_url")
     end
